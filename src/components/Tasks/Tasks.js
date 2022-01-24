@@ -1,6 +1,13 @@
 import React from "react";
 import "./Tasks.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faEdit,
+  faSquare,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 class Tasks extends React.Component {
   constructor(props) {
@@ -45,6 +52,20 @@ class Tasks extends React.Component {
       });
   };
 
+  onMarkAsDone = (tasksId, taskDone) => {
+    fetch("http://localhost:5000/changetask", {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        id: tasksId,
+        done: !taskDone,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => this.props.fetchTasks());
+  };
+
   logout = (e) => {
     e.preventDefault();
     document.cookie =
@@ -62,29 +83,57 @@ class Tasks extends React.Component {
           {this.props.tasks.map((tasks, i) => (
             <li key={i}>
               <div className="card" width="50%">
-                {tasks.description}
-                <br></br>
-                {`Due Date: ${this.getDate(tasks.duedate)}`}
-                <br></br>
-                {`Time: ${tasks.time}`}
-                <br></br>
-                <Link to="/changetask">
+                <div className="card-data" id={`card-data-${tasks.id}`}>
+                  {tasks.done ? (
+                    <>
+                      <p className="card-elements">{tasks.description}</p>
+                      <p className="card-elements">{`Due Date: ${this.getDate(
+                        tasks.duedate
+                      )}`}</p>
+                      <p className="card-elements">{`Time: ${tasks.time}`}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p>{tasks.description}</p>
+                      <p>{`Due Date: ${this.getDate(tasks.duedate)}`}</p>
+                      <p>{`Time: ${tasks.time}`}</p>
+                    </>
+                  )}
+                </div>
+                <div className="Buttons-task">
+                  <Link to="/changetask">
+                    <button
+                      className="editBtn"
+                      onClick={() => {
+                        this.props.loadOneTask(tasks);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
+                    </button>
+                  </Link>
                   <button
+                    className="checkBtn"
+                    id={`button-done-${tasks.id}`}
                     onClick={() => {
-                      this.props.loadOneTask(tasks);
+                      this.onMarkAsDone(tasks.id, tasks.done);
                     }}
                   >
-                    Change
+                    {" "}
+                    {tasks.done ? (
+                      <FontAwesomeIcon icon={faSquare}></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon icon={faCheckSquare}></FontAwesomeIcon>
+                    )}
                   </button>
-                </Link>
-                <br></br>
-                <button
-                  onClick={() => {
-                    this.onDeleteTask(tasks.id, tasks.createdby);
-                  }}
-                >
-                  Delete
-                </button>
+                  <button
+                    className="deleteBtn"
+                    onClick={() => {
+                      this.onDeleteTask(tasks.id, tasks.createdby);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
+                  </button>
+                </div>
               </div>
               <br></br>
             </li>

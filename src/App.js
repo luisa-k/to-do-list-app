@@ -45,9 +45,10 @@ class App extends Component {
   };
 
   loadTasks = (data) => {
+    console.log(data);
     data.sort((a, b) => {
-      const aDate = new Date(a.date + " " + a.time);
-      const bDate = new Date(b.date + " " + b.time);
+      const aDate = new Date(a.duedate + " " + a.time);
+      const bDate = new Date(b.duedate + " " + b.time);
 
       return bDate.getTime() - aDate.getTime();
     });
@@ -68,7 +69,21 @@ class App extends Component {
   updateloggedIn = (update) => {
     this.setState({ loggedIn: update });
   };
-
+  fetchTasks = () => {
+    fetch("http://localhost:5000/tasks", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        createdby: this.state.user.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((tasks) => {
+        this.loadTasks(tasks);
+        this.updateloggedIn(true);
+      });
+  };
   isAuth = async () => {
     try {
       const response = await fetch("http://localhost:5000/verify", {
@@ -80,19 +95,7 @@ class App extends Component {
       console.log(parseRes);
       if (parseRes.answer === true) {
         this.loadUser(parseRes.user);
-        fetch("http://localhost:5000/tasks", {
-          method: "post",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            createdby: parseRes.user.id,
-          }),
-        })
-          .then((response) => response.json())
-          .then((tasks) => {
-            this.loadTasks(tasks);
-            this.updateloggedIn(true);
-          });
+        this.fetchTasks();
       } else {
         console.log("No login possible");
         this.setState({
@@ -114,47 +117,53 @@ class App extends Component {
       <Router>
         <div className="App">
           <Logo />
-          {!this.state.loggedIn ? (
-            <SignIn
-              loadUser={this.loadUser}
-              loadTasks={this.loadTasks}
-              updateloggedIn={this.updateloggedIn}
-            />
-          ) : (
-            <BrowserRouter>
-              <Switch>
-                <Route path="/addtask">
-                  <AddTask loadTasks={this.loadTasks} user={this.state.user} />
-                </Route>
-                <Route exact path="/register">
-                  <Register
-                    loadUser={this.loadUser}
-                    loadTasks={this.loadTasks}
-                    updateloggedIn={this.updateloggedIn}
-                  />
-                </Route>
-                <Route path="/tasks">
-                  <Tasks
-                    loadTasks={this.loadTasks}
-                    loadOneTask={this.loadOneTask}
-                    name={this.state.user.name}
-                    tasks={this.state.tasks}
-                    updateloggedIn={this.updateloggedIn}
-                  />
-                </Route>
-                <Route path="/changetask">
-                  <ChangeTask
-                    loadUser={this.loadUser}
-                    loadTasks={this.loadTasks}
-                    id={this.state.taskID}
-                    createdby={this.state.createdby}
-                    duedate={this.state.duedate}
-                    description={this.state.description}
-                  />
-                </Route>
-              </Switch>
-            </BrowserRouter>
-          )}
+          <div className="AppContainer">
+            {!this.state.loggedIn ? (
+              <SignIn
+                loadUser={this.loadUser}
+                loadTasks={this.loadTasks}
+                updateloggedIn={this.updateloggedIn}
+              />
+            ) : (
+              <BrowserRouter>
+                <Switch>
+                  <Route path="/addtask">
+                    <AddTask
+                      loadTasks={this.loadTasks}
+                      user={this.state.user}
+                    />
+                  </Route>
+                  <Route exact path="/register">
+                    <Register
+                      loadUser={this.loadUser}
+                      loadTasks={this.loadTasks}
+                      updateloggedIn={this.updateloggedIn}
+                    />
+                  </Route>
+                  <Route path="/tasks">
+                    <Tasks
+                      fetchTasks={this.fetchTasks}
+                      loadTasks={this.loadTasks}
+                      loadOneTask={this.loadOneTask}
+                      name={this.state.user.name}
+                      tasks={this.state.tasks}
+                      updateloggedIn={this.updateloggedIn}
+                    />
+                  </Route>
+                  <Route path="/changetask">
+                    <ChangeTask
+                      loadUser={this.loadUser}
+                      loadTasks={this.loadTasks}
+                      id={this.state.taskID}
+                      createdby={this.state.createdby}
+                      duedate={this.state.duedate}
+                      description={this.state.description}
+                    />
+                  </Route>
+                </Switch>
+              </BrowserRouter>
+            )}
+          </div>
         </div>
       </Router>
     );

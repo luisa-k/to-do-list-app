@@ -7,6 +7,7 @@ class SignIn extends React.Component {
     this.state = {
       signInEmail: "",
       signInPassword: "",
+      user: {},
     };
   }
 
@@ -17,7 +18,21 @@ class SignIn extends React.Component {
   onPasswordInput = (event) => {
     this.setState({ signInPassword: event.target.value });
   };
-
+  loadTasks = (parseRes) => {
+    fetch("http://localhost:5000/tasks", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        createdby: this.state.user.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((tasks) => {
+        this.props.loadTasks(tasks);
+        this.props.updateloggedIn(true);
+      });
+  };
   onSubmitSignIn = async () => {
     const response = await fetch("http://localhost:5000/signin", {
       method: "post",
@@ -30,20 +45,8 @@ class SignIn extends React.Component {
     });
     const parseRes = await response.json();
     if (parseRes.user && parseRes.user[0].id) {
-      this.props.loadUser(parseRes.user[0]);
-      fetch("http://localhost:5000/tasks", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          createdby: parseRes.user[0].id,
-        }),
-      })
-        .then((response) => response.json())
-        .then((tasks) => {
-          this.props.loadTasks(tasks);
-          this.props.updateloggedIn(true);
-        });
+      this.setState({ user: parseRes.user[0] });
+      this.loadTasks();
     } else {
       console.log("No login possible");
     }
@@ -57,12 +60,12 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="signIn">
         <label htmlFor="email">Email: </label>
         <br></br>
         <input
           onChange={this.onEmailInput}
-          type="text"
+          type="email"
           id="email"
           name="email"
         ></input>

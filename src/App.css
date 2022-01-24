@@ -1,12 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Leckerli+One&display=swap");
+body {
+  height: 100vh;
+  font-family: "Lato", sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Leckerli One", cursive;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: #8a2387; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom right,
+    #f27121,
+    #e94057,
+    #8a2387
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom right,
+    #f27121,
+    #e94057,
+    #8a2387
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.App h1 {
+  color: white;
+  font-size: 58px;
+}
 .App {
+  height: 70vh;
+  width: 500px;
   text-align: center;
 }
-
+.AppContainer {
+  width: 100%;
+  height: 68vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.signIn input[type="email"],
+.signIn input[type="password"] {
+  border: none;
+  background: -webkit-linear-gradient(
+    to bottom right,
+    #f27121,
+    #e94057,
+    #8a2387
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom right, #f27121, #e94057, #8a2387);
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -28,6 +82,32 @@
   color: #61dafb;
 }
 
+.Buttons-task {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40px;
+}
+.Buttons-task button,
+.Buttons-task a {
+  width: 100%;
+  height: 33%;
+  border: none;
+  cursor: pointer;
+}
+.Buttons-task button.editBtn {
+  height: 100%;
+  background-color: #f27121;
+  color: white;
+}
+.Buttons-task button.deleteBtn {
+  background-color: #e94057;
+  color: white;
+}
+.Buttons-task button.checkBtn {
+  background-color: #8a2387;
+  color: white;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

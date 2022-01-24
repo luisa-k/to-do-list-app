@@ -62,7 +62,7 @@ class ChangeTask extends React.Component {
   render() {
     return (
       <div>
-        {`Change task: ${this.props.id}!:)`}
+        {`Change your task`}
         <br></br>
         <br></br>
         <label htmlFor="todo">Change the description:</label>
@@ -91,7 +91,7 @@ class ChangeTask extends React.Component {
         </Link>
         <br></br>
         <Link to="/tasks">
-          <button>No change</button>
+          <button>Return to list</button>
         </Link>
       </div>
     );
