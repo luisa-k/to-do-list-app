@@ -34,7 +34,7 @@ class ChangeTask extends React.Component {
   render() {
     return (
       <div>
-        {`Change your task`}
+        <h2>Change your task</h2>
         <br></br>
         <br></br>
         <label htmlFor="todo">Change the description:</label>

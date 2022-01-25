@@ -26,3 +26,19 @@ li {
 .card-elements {
   text-decoration: line-through;
 }
+
+.AddTaskButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  position: fixed;
+  margin-left: 410px;
+  margin-top: 310px;
+  font-size: 40px;
+  background: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.479);
+}
+
+.AddTaskButton a {
+  line-height: 1.47;
+}

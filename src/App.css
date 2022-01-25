@@ -79,8 +79,7 @@ h2 {
   height: 40vmin;
   pointer-events: none;
 }
-.signIn input[type="email"],
-.signIn input[type="password"] {
+input {
   font-family: "Lato";
   font-size: 16px;
   background: -webkit-linear-gradient(white); /* Chrome 10-25, Safari 5.1-6 */
@@ -88,6 +87,16 @@ h2 {
   border: none;
   width: 200px;
   padding: 10px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
 }
 
 .input-Container {
@@ -112,11 +121,11 @@ h2 {
   margin: 10px auto;
 }
 
-.buttons-signin a {
+a {
   color: #e94057;
 }
 
-.buttons-signin a:hover {
+a:hover {
   color: #f27121;
 }
 

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faEdit,
+  faPlus,
+  faPlusCircle,
   faSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -115,9 +117,12 @@ class Tasks extends React.Component {
   render() {
     return (
       <div>
-        {`Hi ${this.props.user.name}! Here are your tasks :)`}
-        <br></br>
-        <br></br>
+        <h2>Hi {this.props.user.name}! Here are your tasks:</h2>
+        <div className="AddTaskButton">
+          <Link to="/addtask">
+            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+          </Link>
+        </div>
         <div>
           {this.state.tasks.map((tasks, i) => (
             <li key={i}>
@@ -178,9 +183,6 @@ class Tasks extends React.Component {
             </li>
           ))}
         </div>
-        <Link to="/addtask">
-          <button>Add Task</button>
-        </Link>
       </div>
     );
   }

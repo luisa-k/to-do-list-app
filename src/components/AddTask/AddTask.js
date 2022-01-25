@@ -1,5 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendarDay,
+  faClock,
+  faStickyNote,
+} from "@fortawesome/free-solid-svg-icons";
 
 class AddTask extends React.Component {
   constructor(props) {
@@ -50,40 +56,43 @@ class AddTask extends React.Component {
   render() {
     return (
       <div>
-        <label htmlFor="todo">To Do:</label>
-        <br></br>
-        <input
-          onChange={this.onDescriptionInput}
-          type="text"
-          id="todo"
-          name="todo"
-        ></input>
-        <br></br>
-        <label htmlFor="duedate">Due Date:</label>
-        <br></br>
-        <input
-          onChange={this.onDueDateInput}
-          type="date"
-          id="duedate"
-          name="duedate"
-        ></input>
-        <br></br>
-        <label htmlFor="todo">Time:</label>
-        <br></br>
-        <input
-          onChange={this.onTimeInput}
-          type="time"
-          id="time"
-          name="time"
-        ></input>
-        <br></br>
-        <br></br>
-        <Link to="/">
-          <button onClick={this.onSubmitAddTask}>Add task</button>
-        </Link>
-        <Link to="/">
-          <button>Don't add anything</button>
-        </Link>
+        <h2>Add Task</h2>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
+          <input
+            onChange={this.onDescriptionInput}
+            type="text"
+            id="todo"
+            name="todo"
+            placeholder="Write your to do here"
+          ></input>
+        </div>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faCalendarDay}></FontAwesomeIcon>
+          <input
+            onChange={this.onDueDateInput}
+            type="date"
+            id="duedate"
+            name="duedate"
+          ></input>
+        </div>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faClock}></FontAwesomeIcon>
+          <input
+            onChange={this.onTimeInput}
+            type="time"
+            id="time"
+            name="time"
+          ></input>
+        </div>
+        <div className="buttons-signin">
+          <Link to="/">
+            <button className="signInBtn" onClick={this.onSubmitAddTask}>
+              Add task
+            </button>
+          </Link>
+        </div>
+        <Link to="/">Don't add anything</Link>
       </div>
     );
   }

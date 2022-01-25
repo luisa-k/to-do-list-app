@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 class Register extends React.Component {
   constructor(props) {
@@ -47,41 +49,47 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        <label htmlFor="name">Name: </label>
-        <br></br>
-        <input
-          onChange={this.onNameInput}
-          type="text"
-          id="name"
-          name="name"
-        ></input>
-        <br></br>
-        <label htmlFor="email">Email: </label>
-        <br></br>
-        <input
-          onChange={this.onEmailInput}
-          type="text"
-          id="email"
-          name="email"
-        ></input>
-        <br></br>
-        <label htmlFor="password">Password: </label>
-        <br></br>
-        <input
-          onChange={this.onPasswordInput}
-          type="text"
-          id="password"
-          name="password"
-        ></input>
-        <br></br>
-        <br></br>
-        <button onClick={this.onSubmitRegister}>Register</button>
-        <br></br>
-        <br></br>
-        <label>Already registered? </label>
-        <Link to="/">
-          <button>Sign in!</button>
-        </Link>
+        <h2>Register</h2>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+          <input
+            onChange={this.onNameInput}
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your Name"
+          ></input>
+        </div>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          <input
+            onChange={this.onEmailInput}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="E-Mail"
+          ></input>
+        </div>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
+          <input
+            onChange={this.onPasswordInput}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+          ></input>
+        </div>
+        <div className="buttons-signin">
+          <button className="signInBtn" onClick={this.onSubmitRegister}>
+            Register
+          </button>
+        </div>
+        <div>
+          <label>
+            Already registered? <Link to="/">Sign in!</Link>
+          </label>
+        </div>
       </div>
     );
   }
