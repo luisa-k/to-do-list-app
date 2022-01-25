@@ -20,21 +20,7 @@ class SignIn extends React.Component {
   onPasswordInput = (event) => {
     this.setState({ signInPassword: event.target.value });
   };
-  loadTasks = (parseRes) => {
-    fetch("http://localhost:5000/tasks", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        createdby: this.state.user.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((tasks) => {
-        this.props.loadTasks(tasks);
-        this.props.updateloggedIn(true);
-      });
-  };
+
   onSubmitSignIn = async () => {
     const response = await fetch("http://localhost:5000/signin", {
       method: "post",
@@ -47,9 +33,8 @@ class SignIn extends React.Component {
     });
     const parseRes = await response.json();
     if (parseRes.user && parseRes.user[0].id) {
-      this.setState({ user: parseRes.user[0] });
+      this.props.loadUser(parseRes.user[0]);
       this.props.updateloggedIn(true);
-      this.loadTasks();
     } else {
       console.log("No login possible");
     }

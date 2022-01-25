@@ -26,6 +26,26 @@ class Tasks extends React.Component {
     return parseDate.toLocaleString("en-US", options);
   };
 
+  loadTasks = () => {
+    fetch("http://localhost:5000/tasks", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        createdby: this.props.user.id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((tasks) => {
+        this.props.loadTasks(tasks);
+        this.props.updateloggedIn(true);
+      });
+  };
+
+  componentDidMount = () => {
+    this.loadTasks();
+  };
+
   onDeleteTask = (id, createdby) => {
     fetch("http://localhost:5000/deletetask", {
       method: "delete",
@@ -76,7 +96,7 @@ class Tasks extends React.Component {
   render() {
     return (
       <div>
-        {`Hi ${this.props.name}! Here are your tasks :)`}
+        {`Hi ${this.props.user.name}! Here are your tasks :)`}
         <br></br>
         <br></br>
         <div>

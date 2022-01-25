@@ -119,51 +119,48 @@ class App extends Component {
         <div className="App">
           <Logo />
           <div className="AppContainer">
-            {!this.state.loggedIn ? (
-              <SignIn
-                loadUser={this.loadUser}
-                loadTasks={this.loadTasks}
-                updateloggedIn={this.updateloggedIn}
-              />
-            ) : (
-              <BrowserRouter>
-                <Switch>
-                  <Route path="/addtask">
-                    <AddTask
-                      loadTasks={this.loadTasks}
-                      user={this.state.user}
-                    />
-                  </Route>
-                  <Route exact path="/register">
-                    <Register
+            <BrowserRouter>
+              <Switch>
+                <Route exact path="/">
+                  {!this.state.loggedIn ? (
+                    <SignIn
                       loadUser={this.loadUser}
                       loadTasks={this.loadTasks}
                       updateloggedIn={this.updateloggedIn}
                     />
-                  </Route>
-                  <Route path="/tasks">
+                  ) : (
                     <Tasks
                       fetchTasks={this.fetchTasks}
                       loadTasks={this.loadTasks}
                       loadOneTask={this.loadOneTask}
-                      name={this.state.user.name}
+                      user={this.state.user}
                       tasks={this.state.tasks}
                       updateloggedIn={this.updateloggedIn}
                     />
-                  </Route>
-                  <Route path="/changetask">
-                    <ChangeTask
-                      loadUser={this.loadUser}
-                      loadTasks={this.loadTasks}
-                      id={this.state.taskID}
-                      createdby={this.state.createdby}
-                      duedate={this.state.duedate}
-                      description={this.state.description}
-                    />
-                  </Route>
-                </Switch>
-              </BrowserRouter>
-            )}
+                  )}
+                </Route>
+                <Route path="/addtask">
+                  <AddTask loadTasks={this.loadTasks} user={this.state.user} />
+                </Route>
+                <Route exact path="/register">
+                  <Register
+                    loadUser={this.loadUser}
+                    loadTasks={this.loadTasks}
+                    updateloggedIn={this.updateloggedIn}
+                  />
+                </Route>
+                <Route path="/changetask">
+                  <ChangeTask
+                    loadUser={this.loadUser}
+                    loadTasks={this.loadTasks}
+                    id={this.state.taskID}
+                    createdby={this.state.createdby}
+                    duedate={this.state.duedate}
+                    description={this.state.description}
+                  />
+                </Route>
+              </Switch>
+            </BrowserRouter>
           </div>
         </div>
       </Router>

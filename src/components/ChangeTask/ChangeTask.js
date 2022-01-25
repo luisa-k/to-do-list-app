@@ -86,11 +86,11 @@ class ChangeTask extends React.Component {
         ></input>
         <br></br>
         <br></br>
-        <Link to="/tasks">
+        <Link to="/">
           <button onClick={this.onChangeTask}>Change task</button>
         </Link>
         <br></br>
-        <Link to="/tasks">
+        <Link to="/">
           <button>Return to list</button>
         </Link>
       </div>
