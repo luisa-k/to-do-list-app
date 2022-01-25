@@ -10,7 +10,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
   BrowserRouter,
 } from "react-router-dom";
 
@@ -47,7 +46,9 @@ class App extends Component {
   loadTasks = (data) => {
     console.log(data);
     data.sort((a, b) => {
+      console.log(a.dueDate);
       const aDate = new Date(a.duedate + " " + a.time);
+      console.log(aDate);
       const bDate = new Date(b.duedate + " " + b.time);
 
       return bDate.getTime() - aDate.getTime();

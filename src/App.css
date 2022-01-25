@@ -4,10 +4,13 @@ body {
   font-family: "Lato", sans-serif;
 }
 h1,
-h2,
 h3,
 h4 {
   font-family: "Leckerli One", cursive;
+}
+
+h2 {
+  font-family: "Lato", sans-serif;
 }
 #root {
   display: flex;
@@ -52,15 +55,45 @@ h4 {
 }
 .signIn input[type="email"],
 .signIn input[type="password"] {
+  font-family: "Lato";
+  font-size: 16px;
+  background: -webkit-linear-gradient(white); /* Chrome 10-25, Safari 5.1-6 */
+  background: white;
   border: none;
-  background: -webkit-linear-gradient(
-    to bottom right,
-    #f27121,
-    #e94057,
-    #8a2387
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom right, #f27121, #e94057, #8a2387);
+  width: 200px;
+  padding: 10px;
 }
+
+.input-Container {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.buttons-signin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttons-signin button.signInBtn {
+  width: 250px;
+  height: 50px;
+  border: none;
+  background-color: #e94057;
+  color: white;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  margin: 10px auto;
+}
+
+.buttons-signin a {
+  color: #e94057;
+}
+
+.buttons-signin a:hover {
+  color: #f27121;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -95,19 +128,23 @@ h4 {
   border: none;
   cursor: pointer;
 }
+
 .Buttons-task button.editBtn {
   height: 100%;
   background-color: #f27121;
   color: white;
 }
+
 .Buttons-task button.deleteBtn {
   background-color: #e94057;
   color: white;
 }
+
 .Buttons-task button.checkBtn {
   background-color: #8a2387;
   color: white;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

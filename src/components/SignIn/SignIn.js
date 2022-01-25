@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -46,6 +48,7 @@ class SignIn extends React.Component {
     const parseRes = await response.json();
     if (parseRes.user && parseRes.user[0].id) {
       this.setState({ user: parseRes.user[0] });
+      this.props.updateloggedIn(true);
       this.loadTasks();
     } else {
       console.log("No login possible");
@@ -61,39 +64,39 @@ class SignIn extends React.Component {
   render() {
     return (
       <div className="signIn">
-        <label htmlFor="email">Email: </label>
-        <br></br>
-        <input
-          onChange={this.onEmailInput}
-          type="email"
-          id="email"
-          name="email"
-        ></input>
-        <br></br>
-        <label htmlFor="password">Password: </label>
-        <br></br>
-        <input
-          onChange={this.onPasswordInput}
-          type="password"
-          id="password"
-          name="password"
-        ></input>
-        <br></br>
-        <br></br>
-        <Link to="/tasks">
+        <h2>Login</h2>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+          <input
+            onChange={this.onEmailInput}
+            type="email"
+            id="email"
+            name="email"
+            placeholder="E-Mail"
+          ></input>
+        </div>
+        <div className="input-Container">
+          <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
+          <input
+            onChange={this.onPasswordInput}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+          ></input>
+        </div>
+        <div className="buttons-signin">
           <button
+            className="signInBtn"
             onClick={this.onSubmitSignIn}
             onKeyPress={this.handleKeypress}
           >
             Sign In
           </button>
-        </Link>
-        <br></br>
-        <br></br>
-        <label>Not yet registered? </label>
-        <Link to="/register">
-          <button>Sign up!</button>
-        </Link>
+          <label>
+            Not yet registered? <Link to="/register">Sign up!</Link>
+          </label>
+        </div>
       </div>
     );
   }
