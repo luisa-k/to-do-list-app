@@ -6,12 +6,11 @@ class ChangeTask extends React.Component {
     super();
     this.state = {
       description: props.description,
-      duedate: props.duedate,
+      duedate: "",
     };
   }
 
   onDescriptionInput = (event) => {
-    console.log(event.target.value);
     this.setState({ description: event.target.value });
   };
 
@@ -29,34 +28,7 @@ class ChangeTask extends React.Component {
         description: this.state.description,
         duedate: this.state.duedate,
       }),
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        fetch("http://localhost:5000/tasks", {
-          method: "post",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            createdby: this.props.createdby,
-          }),
-        })
-          .then((response) => response.json())
-          .then((tasks) => {
-            this.props.loadTasks(tasks);
-          });
-      });
-  };
-
-  getDate = (date) => {
-    let parseDate = new Date(date);
-    let day = parseDate.getDate();
-    let month = parseDate.getMonth();
-    let year = parseDate.getFullYear();
-    if (month < 10) {
-      return `${year}-0${month}-${day}`;
-    } else {
-      return `${year}-${month}-${day}`;
-    }
+    }).then((response) => response.json());
   };
 
   render() {

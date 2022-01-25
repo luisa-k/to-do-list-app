@@ -17,7 +17,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      path: "signin",
       id: "",
       name: "",
       email: "",
@@ -43,21 +42,6 @@ class App extends Component {
     });
   };
 
-  loadTasks = (data) => {
-    console.log(data);
-    data.sort((a, b) => {
-      console.log(a.dueDate);
-      const aDate = new Date(a.duedate + " " + a.time);
-      console.log(aDate);
-      const bDate = new Date(b.duedate + " " + b.time);
-
-      return bDate.getTime() - aDate.getTime();
-    });
-    this.setState({
-      tasks: data,
-    });
-  };
-
   loadOneTask = (data) => {
     this.setState({
       taskID: data.id,
@@ -70,38 +54,20 @@ class App extends Component {
   updateloggedIn = (update) => {
     this.setState({ loggedIn: update });
   };
-  fetchTasks = () => {
-    fetch("http://localhost:5000/tasks", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        createdby: this.state.user.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((tasks) => {
-        this.loadTasks(tasks);
-        this.updateloggedIn(true);
-      });
-  };
+
   isAuth = async () => {
     try {
       const response = await fetch("http://localhost:5000/verify", {
         method: "GET",
         credentials: "include",
       });
-
       const parseRes = await response.json();
-      console.log(parseRes);
       if (parseRes.answer === true) {
         this.loadUser(parseRes.user);
-        this.fetchTasks();
+        this.updateloggedIn(true);
       } else {
         console.log("No login possible");
-        this.setState({
-          loggedIn: false,
-        });
+        this.updateloggedIn(false);
       }
     } catch (err) {
       console.log(err.message);
@@ -113,7 +79,6 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.loggedIn);
     return (
       <Router>
         <div className="App">
@@ -125,34 +90,29 @@ class App extends Component {
                   {!this.state.loggedIn ? (
                     <SignIn
                       loadUser={this.loadUser}
-                      loadTasks={this.loadTasks}
                       updateloggedIn={this.updateloggedIn}
                     />
                   ) : (
                     <Tasks
-                      fetchTasks={this.fetchTasks}
-                      loadTasks={this.loadTasks}
-                      loadOneTask={this.loadOneTask}
                       user={this.state.user}
                       tasks={this.state.tasks}
                       updateloggedIn={this.updateloggedIn}
+                      loadOneTask={this.loadOneTask}
                     />
                   )}
                 </Route>
                 <Route path="/addtask">
-                  <AddTask loadTasks={this.loadTasks} user={this.state.user} />
+                  <AddTask user={this.state.user} />
                 </Route>
                 <Route exact path="/register">
                   <Register
                     loadUser={this.loadUser}
-                    loadTasks={this.loadTasks}
                     updateloggedIn={this.updateloggedIn}
                   />
                 </Route>
                 <Route path="/changetask">
                   <ChangeTask
                     loadUser={this.loadUser}
-                    loadTasks={this.loadTasks}
                     id={this.state.taskID}
                     createdby={this.state.createdby}
                     duedate={this.state.duedate}

@@ -12,7 +12,9 @@ import {
 class Tasks extends React.Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      tasks: [],
+    };
   }
 
   getDate = (date) => {
@@ -37,9 +39,33 @@ class Tasks extends React.Component {
     })
       .then((response) => response.json())
       .then((tasks) => {
-        this.props.loadTasks(tasks);
+        this.sortTasks(tasks);
         this.props.updateloggedIn(true);
       });
+  };
+
+  sortTasks = (data) => {
+    const sortbyDate = data.sort((a, b) => {
+      const aDate = new Date(a.duedate);
+      const bDate = new Date(b.duedate);
+      return aDate - bDate;
+    });
+
+    const sortbyTime = sortbyDate.sort((a, b) => {
+      const aDate = new Date(a.duedate);
+      const bDate = new Date(b.duedate);
+      if (aDate.toString() === bDate.toString()) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    console.log(sortbyTime);
+
+    this.setState({
+      tasks: sortbyTime,
+    });
   };
 
   componentDidMount = () => {
@@ -67,7 +93,7 @@ class Tasks extends React.Component {
         })
           .then((response) => response.json())
           .then((tasks) => {
-            this.props.loadTasks(tasks);
+            this.loadTasks(tasks);
           });
       });
   };
@@ -83,7 +109,7 @@ class Tasks extends React.Component {
       }),
     })
       .then((response) => response.json())
-      .then(() => this.props.fetchTasks());
+      .then(() => this.loadTasks());
   };
 
   logout = (e) => {
@@ -100,7 +126,7 @@ class Tasks extends React.Component {
         <br></br>
         <br></br>
         <div>
-          {this.props.tasks.map((tasks, i) => (
+          {this.state.tasks.map((tasks, i) => (
             <li key={i}>
               <div className="card" width="50%">
                 <div className="card-data" id={`card-data-${tasks.id}`}>

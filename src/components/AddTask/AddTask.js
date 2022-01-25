@@ -43,11 +43,7 @@ class AddTask extends React.Component {
           body: JSON.stringify({
             createdby: user.createdby,
           }),
-        })
-          .then((response) => response.json())
-          .then((tasks) => {
-            this.props.loadTasks(tasks);
-          });
+        });
       });
   };
 
@@ -82,10 +78,10 @@ class AddTask extends React.Component {
         ></input>
         <br></br>
         <br></br>
-        <Link to="/tasks">
+        <Link to="/">
           <button onClick={this.onSubmitAddTask}>Add task</button>
         </Link>
-        <Link to="/tasks">
+        <Link to="/">
           <button>Don't add anything</button>
         </Link>
       </div>
