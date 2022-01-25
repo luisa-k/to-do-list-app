@@ -15,7 +15,6 @@ h2 {
 #root {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   height: 100%;
   background: #8a2387; /* fallback for old browsers */
@@ -32,22 +31,49 @@ h2 {
     #8a2387
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+/* width */
+.AppContainer::-webkit-scrollbar {
+  width: 8px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rebeccapurple;
+}
+
 .App h1 {
   color: white;
   font-size: 58px;
 }
 .App {
-  height: 70vh;
+  height: 80vh;
   width: 500px;
+  margin-top: 10px;
   text-align: center;
+  max-width: 100vw;
 }
+
+.ButtonLogout {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.ButtonLogout div {
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  position: fixed;
+}
+
 .AppContainer {
   width: 100%;
-  height: 68vh;
+  height: calc(100% - 120px);
   overflow-y: auto;
   background-color: white;
   padding: 20px;
   box-sizing: border-box;
+  scrollbar-color: rebeccapurple white;
+  scrollbar-width: thin;
 }
 .App-logo {
   height: 40vmin;

@@ -12,6 +12,8 @@ import {
   Route,
   BrowserRouter,
 } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 class App extends Component {
   constructor() {
@@ -78,10 +80,26 @@ class App extends Component {
     this.isAuth();
   };
 
+  logout = (e) => {
+    e.preventDefault();
+    document.cookie =
+      "webtoken =; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    this.updateloggedIn(false);
+  };
+
   render() {
     return (
       <Router>
         <div className="App">
+          <div className="ButtonLogout">
+            {this.state.loggedIn ? (
+              <div onClick={(e) => this.logout(e)}>
+                <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Sign out
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
           <Logo />
           <div className="AppContainer">
             <BrowserRouter>

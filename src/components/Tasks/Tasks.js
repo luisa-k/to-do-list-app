@@ -112,13 +112,6 @@ class Tasks extends React.Component {
       .then(() => this.loadTasks());
   };
 
-  logout = (e) => {
-    e.preventDefault();
-    document.cookie =
-      "webtoken =; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    this.props.updateloggedIn(false);
-  };
-
   render() {
     return (
       <div>
@@ -188,9 +181,6 @@ class Tasks extends React.Component {
         <Link to="/addtask">
           <button>Add Task</button>
         </Link>
-        <div>
-          <button onClick={(e) => this.logout(e)}>Logout</button>
-        </div>
       </div>
     );
   }
