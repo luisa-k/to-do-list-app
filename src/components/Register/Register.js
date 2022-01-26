@@ -37,7 +37,6 @@ class Register extends React.Component {
       }),
     });
     const parseRes = await response.json();
-    localStorage.setItem("token", parseRes.token);
     if (parseRes.user[0]) {
       this.props.loadUser(parseRes.user[0]);
       this.props.updateloggedIn(true);

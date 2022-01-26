@@ -29,6 +29,7 @@ class App extends Component {
       description: "",
       createdby: "",
       duedate: "",
+      time: "",
       loggedIn: false,
       user: "",
     };
@@ -51,6 +52,7 @@ class App extends Component {
       createdby: data.createdby,
       description: data.description,
       duedate: data.duedate,
+      time: data.time,
     });
   };
 
@@ -128,10 +130,14 @@ class App extends Component {
                   )}
                 </Route>
                 <Route exact path="/register">
-                  <Register
-                    loadUser={this.loadUser}
-                    updateloggedIn={this.updateloggedIn}
-                  />
+                  {this.state.loggedIn ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <Register
+                      loadUser={this.loadUser}
+                      updateloggedIn={this.updateloggedIn}
+                    />
+                  )}
                 </Route>
                 <Route path="/changetask">
                   {!this.state.loggedIn ? (
