@@ -6,7 +6,6 @@ import {
   faCheckSquare,
   faEdit,
   faPlus,
-  faPlusCircle,
   faSquare,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -126,23 +125,27 @@ class Tasks extends React.Component {
         <div>
           {this.state.tasks.map((tasks, i) => (
             <li key={i}>
-              <div className="card" width="50%">
-                <div className="card-data" id={`card-data-${tasks.id}`}>
-                  {tasks.done ? (
-                    <>
-                      <p className="card-elements">{tasks.description}</p>
-                      <p className="card-elements">{`Due Date: ${this.getDate(
-                        tasks.duedate
-                      )}`}</p>
-                      <p className="card-elements">{`Time: ${tasks.time}`}</p>
-                    </>
-                  ) : (
-                    <>
-                      <p>{tasks.description}</p>
-                      <p>{`Due Date: ${this.getDate(tasks.duedate)}`}</p>
-                      <p>{`Time: ${tasks.time}`}</p>
-                    </>
-                  )}
+              <div className="card-container">
+                <div className="card" width="50%">
+                  <div className="card-data" id={`card-data-${tasks.id}`}>
+                    {tasks.done ? (
+                      <>
+                        <p className="card-elements" id="card-description">
+                          {tasks.description}
+                        </p>
+                        <p className="card-elements">{`${this.getDate(
+                          tasks.duedate
+                        )} at ${tasks.time}`}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p id="card-description">{tasks.description}</p>
+                        <p>{`${this.getDate(tasks.duedate)} at ${
+                          tasks.time
+                        }`}</p>
+                      </>
+                    )}
+                  </div>
                 </div>
                 <div className="Buttons-task">
                   <Link to="/changetask">

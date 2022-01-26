@@ -11,6 +11,7 @@ import {
   Switch,
   Route,
   BrowserRouter,
+  Redirect,
 } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -120,7 +121,11 @@ class App extends Component {
                   )}
                 </Route>
                 <Route path="/addtask">
-                  <AddTask user={this.state.user} />
+                  {!this.state.loggedIn ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <AddTask user={this.state.user} />
+                  )}
                 </Route>
                 <Route exact path="/register">
                   <Register
@@ -129,13 +134,17 @@ class App extends Component {
                   />
                 </Route>
                 <Route path="/changetask">
-                  <ChangeTask
-                    loadUser={this.loadUser}
-                    id={this.state.taskID}
-                    createdby={this.state.createdby}
-                    duedate={this.state.duedate}
-                    description={this.state.description}
-                  />
+                  {!this.state.loggedIn ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <ChangeTask
+                      loadUser={this.loadUser}
+                      id={this.state.taskID}
+                      createdby={this.state.createdby}
+                      duedate={this.state.duedate}
+                      description={this.state.description}
+                    />
+                  )}
                 </Route>
               </Switch>
             </BrowserRouter>

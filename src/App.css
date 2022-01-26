@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Leckerli+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&family=Leckerli+One&display=swap");
 body {
   height: 100vh;
   font-family: "Lato", sans-serif;
@@ -154,7 +154,7 @@ a:hover {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 40px;
+  width: 80px;
 }
 .Buttons-task button,
 .Buttons-task a {
