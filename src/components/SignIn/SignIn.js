@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import config from "../..config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,7 +23,7 @@ class SignIn extends React.Component {
   };
 
   onSubmitSignIn = async () => {
-    const response = await fetch("http://localhost:5000/signin", {
+    const response = await fetch(`${config.url}/signin`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

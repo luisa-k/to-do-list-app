@@ -1,5 +1,6 @@
 import React from "react";
 import "./Tasks.css";
+import config from "../..config";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,7 +31,7 @@ class Tasks extends React.Component {
   };
 
   loadTasks = () => {
-    fetch("http://localhost:5000/tasks", {
+    fetch(`${config.url}/tasks`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -74,7 +75,7 @@ class Tasks extends React.Component {
   };
 
   onDeleteTask = (id, createdby) => {
-    fetch("http://localhost:5000/deletetask", {
+    fetch(`${config.url}/deletetask`, {
       method: "delete",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -84,7 +85,7 @@ class Tasks extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        fetch("http://localhost:5000/tasks", {
+        fetch(`${config.url}/tasks`, {
           method: "post",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -100,7 +101,7 @@ class Tasks extends React.Component {
   };
 
   onMarkAsDone = (tasksId, taskDone) => {
-    fetch("http://localhost:5000/changetask", {
+    fetch(`${config.url}/changetask`, {
       method: "put",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

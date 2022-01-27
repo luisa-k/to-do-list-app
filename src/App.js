@@ -2,6 +2,7 @@ import "./App.css";
 import React, { Component } from "react";
 import SignIn from "./components/SignIn/SignIn";
 import Logo from "./components/Logo/Logo";
+import config from "../..config";
 import Register from "./components/Register/Register";
 import Tasks from "./components/Tasks/Tasks";
 import ChangeTask from "./components/ChangeTask/ChangeTask";
@@ -62,7 +63,7 @@ class App extends Component {
 
   isAuth = async () => {
     try {
-      const response = await fetch("http://localhost:5000/verify", {
+      const response = await fetch(`${config.url}/verify`, {
         method: "GET",
         credentials: "include",
       });

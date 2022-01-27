@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import config from "../..config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDay,
@@ -30,7 +31,7 @@ class ChangeTask extends React.Component {
   };
 
   onChangeTask = () => {
-    fetch("http://localhost:5000/changetask", {
+    fetch(`${config.url}/changetask`, {
       method: "put",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

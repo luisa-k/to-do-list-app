@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import config from "../..config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDay,
@@ -30,7 +31,7 @@ class AddTask extends React.Component {
   };
 
   onSubmitAddTask = () => {
-    fetch("http://localhost:5000/addtask", {
+    fetch(`${config.url}/addtask`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -42,7 +43,7 @@ class AddTask extends React.Component {
     })
       .then((response) => response.json())
       .then((user) => {
-        fetch("http://localhost:5000/tasks", {
+        fetch(`${config.url}/changetask`, {
           method: "post",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
